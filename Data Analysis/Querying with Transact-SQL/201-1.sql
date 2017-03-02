@@ -45,6 +45,10 @@ SELECT * FROM SalesLT.SalesOrderHeader
 SELECT 'SO' + Cast(SalesOrderID as varchar(5)) + '(' + Convert(varchar(1), RevisionNumber) + ')' as SalesOrderNumber
 FROM SalesLT.SalesOrderHeader
 
+SELECT SalesOrderNumber + ' (' + STR(RevisionNumber, 1) + ')' AS OrderRevision,
+	   CONVERT(nvarchar(30), OrderDate, 102) AS OrderDate
+FROM SalesLT.SalesOrderHeader;
+
 SELECT Convert(nvarchar(10), OrderDate, 102) As Orderdate
 FROM SalesLT.SalesOrderHeader
 
@@ -58,6 +62,10 @@ UPDATE SalesLT.Customer SET EmailAddress = NULL WHERE CustomerID % 7 = 1;
 
 SELECT CustomerID, isnull(EmailAddress, Phone) As PrimaryContact
 From SalesLT.Customer
+
+--======>
+SELECT CustomerID, COALESCE(EmailAddress, Phone) AS PrimaryContact
+FROM SalesLT.Customer;
 
 --3. Retrieve shipping status
 UPDATE SalesLT.SalesOrderHeader SET ShipDate = NULL WHERE SalesOrderID > 71899;

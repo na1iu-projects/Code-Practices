@@ -29,3 +29,34 @@ select name, color, size, sellenddate from saleslt.product where sellenddate is 
 
 --Find products that have a sell end date in 2006
 select name, color, size, sellenddate from saleslt.product where sellenddate between '2006/1/1' and '2006/12/31';
+
+--find products that have a category id of 5,6, or7.
+select name, color, size, productcategoryid from saleslt.product where productcategoryid in (5,6,7) order by productcategoryid;
+
+--find products that have a category id of 5,6, or7 and have a sell end date.
+select name, color, size, productcategoryid from saleslt.product where productcategoryid in (5,6,7) and sellenddate is not null order by productcategoryid;
+
+--Lab 02
+-- Challenge 1: Retrieve Data for transportation reports
+select * from saleslt.address;
+--1. retrieve a list of cities
+select distinct city, stateprovince from saleslt.address;
+
+--2. retrieve the heaviest products
+select top 10 percent * from saleslt.product where weight is not null order by weight desc;
+
+--3. retrieve the heaviest 100 products not including the heaviest ten
+select * from saleslt.product where weight is not null order by weight desc offset 10 rows fetch next 100 rows only;
+
+--Chanllenge 2: Retrieve product data
+--1.retrieve product details for product model 1
+select name, color, size, productmodelid from saleslt.product where productmodelid = 1;
+
+--2. filter products by color and size
+select productnumber, name, color, size from saleslt.product where color in ('black', 'red', 'white') and size in ('S', 'M');
+
+--3. filter products by product number
+select productnumber, name, listprice from saleslt.product where productnumber like 'BK-%';
+
+--4. retrieve specific products by product number****************
+select productnumber, name, color, size from saleslt.product  where productnumber like 'BK-[^R]%-[0-9][0-9]';
