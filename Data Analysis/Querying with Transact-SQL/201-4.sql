@@ -1,3 +1,4 @@
+--SAMPLE
 Select firstname, lastname
 FROM saleslt.employees
 UNION
